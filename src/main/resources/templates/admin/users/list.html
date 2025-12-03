@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>User List</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Manager Users</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between my-4">
+                        <h3>Table Users</h3>
+                        <a th:href="@{/admin/users/create}" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Create New User
+                        </a>
+                    </div>
+
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Admin</th>
+                                <th>Active</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.fullname}"></td>
+                                <td th:text="${user.phone}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td>
+                                    <span th:if="${user.admin}" class="badge bg-success">Admin</span>
+                                    <span th:unless="${user.admin}" class="badge bg-secondary">User</span>
+                                </td>
+                                <td>
+                                    <span th:if="${user.active}" class="badge bg-success">Active</span>
+                                    <span th:unless="${user.active}" class="badge bg-danger">Inactive</span>
+                                </td>
+                                <td>
+                                    <div th:if="${user.images != null}">
+                                        <img th:src="@{'/uploads/' + ${user.images}}" 
+                                             style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+                                    </div>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/users/update/{username}(username=${user.username})}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a th:href="@{/admin/users/delete/{username}(username=${user.username})}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

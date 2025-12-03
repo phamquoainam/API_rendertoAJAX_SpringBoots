@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Video List</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Videos</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Videos</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3>Video List</h3>
+                        <div class="d-flex gap-2">
+                            <form th:action="@{/admin/videos}" method="get" class="d-flex">
+                                <input type="text" class="form-control" name="keyword" placeholder="Search by title..." th:value="${keyword}">
+                                <button class="btn btn-outline-primary ms-2" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            <a th:href="@{/admin/videos/create}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Create Video
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 100px;">Poster</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Views</th>
+                                <th>Active</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="v : ${videos}">
+                                <td>
+                                    <div th:if="${v.poster != null}">
+                                        <img th:src="@{'/uploads/' + ${v.poster}}" 
+                                             style="width:70px;height:70px;object-fit:cover;border-radius:4px;">
+                                    </div>
+                                </td>
+                                <td th:text="${v.title}"></td>
+                                <td>
+                                    <span th:if="${v.category != null}" th:text="${v.category.categoryName}"></span>
+                                    <span th:unless="${v.category != null}" class="text-muted">No category</span>
+                                </td>
+                                <td th:text="${v.views}"></td>
+                                <td>
+                                    <span th:if="${v.active}" class="badge bg-success">Active</span>
+                                    <span th:unless="${v.active}" class="badge bg-secondary">Inactive</span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/videos/update/{id}(id=${v.videoId})}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Update
+                                    </a>
+                                    <a th:href="@{/admin/videos/delete/{id}(id=${v.videoId})}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(videos)}">
+                                <td colspan="6" class="text-center text-muted">Không có video nào.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

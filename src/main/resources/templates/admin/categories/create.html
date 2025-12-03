@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<head>
+    <title>Create Category</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            const imageFile = $("#imageFile");
+            imageFile.change(function (e) {
+                if (this.files && this.files[0]) {
+                    const imgURL = URL.createObjectURL(e.target.files[0]);
+                    $("#imagePreview").attr("src", imgURL);
+                    $("#imagePreview").css({
+                        "display": "block"
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Category</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a th:href="@{/admin/categories}">Category</a></li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Create Category</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8 col-12 mx-auto">
+                            <form th:action="@{/admin/categories/create}" method="post" 
+                                  th:object="${newCategory}" enctype="multipart/form-data">
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="categoryName" class="form-label">Category Name</label>
+                                        <input type="text" class="form-control" id="categoryName" 
+                                               th:field="*{categoryName}" required />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="categoryCode" class="form-label">Category Code</label>
+                                        <input type="text" class="form-control" id="categoryCode" 
+                                               th:field="*{categoryCode}" required />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-select" id="status" th:field="*{status}">
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="imageFile" class="form-label">Image</label>
+                                    <input class="form-control" type="file" id="imageFile" name="imageFile"
+                                        accept=".png, .jpg, .jpeg" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <img id="imagePreview" src="" alt="category image preview"
+                                        class="img-thumbnail" style="max-height: 250px; display: none;">
+                                </div>
+
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a th:href="@{/admin/categories}" class="btn btn-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

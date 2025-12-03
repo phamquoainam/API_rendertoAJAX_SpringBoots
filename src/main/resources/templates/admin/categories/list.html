@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<head>
+    <title>Category List</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Categories</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Danh sách Category</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div><i class="fas fa-table me-1"></i> Data Table Example</div>
+                    <a th:href="@{/admin/categories/create}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Create Category
+                    </a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên Category</th>
+                                <th>Code</th>
+                                <th>Trạng thái</th>
+                                <th>Ảnh</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="c : ${categories}">
+                                <td th:text="${c.categoryId}"></td>
+                                <td th:text="${c.categoryName}"></td>
+                                <td th:text="${c.categoryCode}"></td>
+                                
+                                <td>
+                                    <span th:if="${c.status}" class="badge bg-success">Active</span>
+                                    <span th:unless="${c.status}" class="badge bg-danger">Inactive</span>
+                                </td>
+
+                                <td>
+                                    <div th:if="${c.images != null}">
+                                        <img th:src="@{'/uploads/' + ${c.images}}"
+                                             style="width:60px; height:60px; object-fit:cover; border-radius:5px;"
+                                             onerror="this.src='https://via.placeholder.com/60?text=No+Img'">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <a th:href="@{/admin/categories/update/{id}(id=${c.categoryId})}"
+                                        class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Update</a>
+                                    <a th:href="@{/admin/categories/delete/{id}(id=${c.categoryId})}"
+                                        class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
+                                </td>
+                            </tr>
+                            
+                            <tr th:if="${categories.empty}">
+                                <td colspan="6" class="text-center">Chưa có dữ liệu category nào.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

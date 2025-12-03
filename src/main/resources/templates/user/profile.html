@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head><title>Hồ sơ cá nhân</title></head>
+<body>
+<div layout:fragment="content">
+    <div class="card shadow-sm w-75 mx-auto">
+        <div class="card-header bg-info text-white">
+            <h4>Thông tin cá nhân</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" th:each="item : ${profile}">
+                    <strong th:text="${#strings.capitalize(item.key)} + ': '"></strong>
+                    <span th:text="${item.value}" class="text-muted ms-2"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/home" class="btn btn-outline-primary">Quay lại trang chủ</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

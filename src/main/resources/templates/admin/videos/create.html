@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Create Video</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $("#posterFile").change(function (e) {
+                if (this.files && this.files[0]) {
+                    const imgURL = URL.createObjectURL(e.target.files[0]);
+                    $("#posterPreview").attr("src", imgURL).css("display", "block");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Videos</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Create Video</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5>Create Video</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8 mx-auto">
+                            <form th:action="@{/admin/videos/create}" method="post" th:object="${newVideo}" enctype="multipart/form-data">
+                                
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" th:field="*{title}" required />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" th:field="*{description}" rows="3"></textarea>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="views" class="form-label">Views</label>
+                                        <input type="number" class="form-control" id="views" th:field="*{views}" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="active" class="form-label">Active</label>
+                                        <select class="form-select" id="active" th:field="*{active}">
+                                            <option value="true">Active</option>
+                                            <option value="false">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-select" id="category" th:field="*{category.categoryId}">
+                                        <option th:each="c : ${categories}" 
+                                                th:value="${c.categoryId}" 
+                                                th:text="${c.categoryName}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="posterFile" class="form-label">Poster</label>
+                                    <input class="form-control" type="file" id="posterFile" name="posterFile" accept=".png, .jpg, .jpeg" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <img id="posterPreview" src="" class="img-thumbnail" style="max-height: 250px; display: none;">
+                                </div>
+
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a th:href="@{/admin/videos}" class="btn btn-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

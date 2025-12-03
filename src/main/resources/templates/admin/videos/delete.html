@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Delete Video</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Videos</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Delete Video</li>
+            </ol>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 col-12 offset-md-3 text-center">
+                        <div class="card border-danger shadow">
+                            <div class="card-body">
+                                <h2 class="text-danger mb-4">
+                                    <i class="fas fa-exclamation-triangle"></i> Xóa video
+                                </h2>
+                                <p>Bạn có chắc chắn muốn xóa video có ID: <strong th:text="${id}"></strong>?</p>
+                                <p class="text-muted">Hành động này không thể hoàn tác.</p>
+
+                                <form th:action="@{/admin/videos/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${id}" />
+
+                                    <div class="d-flex justify-content-center gap-3 mt-4">
+                                        <button type="submit" class="btn btn-danger px-4">Xóa</button>
+                                        <a th:href="@{/admin/videos}" class="btn btn-secondary px-4">Hủy</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

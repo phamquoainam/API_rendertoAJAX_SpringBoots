@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        .stat-box {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .stat-box:hover { transform: translateY(-2px); border-color: #ccc; }
+        .stat-title { color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .stat-number { font-size: 1.8rem; font-weight: 700; color: #222; }
+        
+        .simple-card { background: #fff; border: 1px solid #eee; border-radius: 6px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .simple-card-header { padding: 15px 20px; border-bottom: 1px solid #eee; font-weight: 600; display: flex; justify-content: space-between; align-items: center; background-color: #fbfbfb; }
+        
+        .activity-list { list-style: none; padding: 0; margin: 0; }
+        .activity-item { padding: 15px 20px; border-bottom: 1px solid #f8f8f8; display: flex; align-items: flex-start; gap: 12px; }
+        .activity-icon { width: 32px; height: 32px; background: #f5f5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #555; flex-shrink: 0; }
+        
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .bg-green { background-color: #28a745; }
+        .bg-gray { background-color: #ccc; }
+    </style>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <div class="stat-box">
+                    <div class="stat-title">Revenue</div>
+                    <div class="stat-number">$24,500</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-box">
+                    <div class="stat-title">Users</div>
+                    <div class="stat-number">1,240</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-box">
+                    <div class="stat-title">Orders</div>
+                    <div class="stat-number">85</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-box">
+                    <div class="stat-title">Pending</div>
+                    <div class="stat-number text-danger">12</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="simple-card">
+                    <div class="simple-card-header">
+                        Recent Transactions
+                        <a href="#" class="btn btn-sm btn-light text-muted" style="font-size: 0.8rem;">View All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1245</td>
+                                    <td>John Doe</td>
+                                    <td>Oct 15, 2023</td>
+                                    <td><span class="status-dot bg-green"></span>Paid</td>
+                                    <td class="text-end fw-bold">$120.00</td>
+                                </tr>
+                                <tr>
+                                    <td>#1244</td>
+                                    <td>Alex Smith</td>
+                                    <td>Oct 15, 2023</td>
+                                    <td><span class="status-dot bg-gray"></span>Pending</td>
+                                    <td class="text-end fw-bold">$85.50</td>
+                                </tr>
+                                <tr>
+                                    <td>#1243</td>
+                                    <td>Sarah Lee</td>
+                                    <td>Oct 14, 2023</td>
+                                    <td><span class="status-dot bg-green"></span>Paid</td>
+                                    <td class="text-end fw-bold">$340.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="simple-card">
+                    <div class="simple-card-header">Activity Feed</div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                            <div>
+                                <div class="small fw-bold">New user registered</div>
+                                <div class="small text-muted">25 mins ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-box"></i></div>
+                            <div>
+                                <div class="small fw-bold">Order #1245 shipped</div>
+                                <div class="small text-muted">2 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-exclamation-circle text-danger"></i></div>
+                            <div>
+                                <div class="small fw-bold">Server overloaded</div>
+                                <div class="small text-muted">5 hours ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

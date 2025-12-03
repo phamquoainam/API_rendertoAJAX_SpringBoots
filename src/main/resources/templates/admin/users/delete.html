@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title>Delete User</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container px-4">
+            <h1 class="mt-4">Delete User</h1>
+
+            <div class="card border-danger shadow mt-4">
+                <div class="card-body text-center">
+                    <div class="alert alert-warning">
+                        <h4>Bạn có chắc chắn muốn xoá người dùng:</h4>
+                        <h3 class="text-danger" th:text="${newUser.username}">Username</h3>
+                        <p>Hành động này không thể hoàn tác.</p>
+                    </div>
+
+                    <form th:action="@{/admin/users/delete}" method="post" th:object="${newUser}">
+                        <input type="hidden" th:field="*{username}" />
+
+                        <div class="d-flex justify-content-center gap-3 mt-4">
+                            <button type="submit" class="btn btn-danger">Xoá người dùng</button>
+                            <a th:href="@{/admin/users}" class="btn btn-secondary">Huỷ</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
