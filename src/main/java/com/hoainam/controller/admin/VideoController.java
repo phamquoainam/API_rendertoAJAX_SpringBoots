@@ -166,4 +166,10 @@ public class VideoController {
         model.addAttribute("videoPage", resultPage);
         return "admin/videos/searchpaging";
     }
+    
+    @GetMapping("/ajax")
+    public String ajaxPage(Model model) {
+        model.addAttribute("categories", categoryService.findAll());
+        return "admin/video-ajax";
+    }
 }

@@ -34,7 +34,11 @@ public class AuthFilter implements Filter {
                 || uri.startsWith("/js")
                 || uri.startsWith("/images")
                 || uri.startsWith("/assets")
-                || uri.startsWith("/uploads")) {
+                || uri.startsWith("/uploads")
+                || uri.startsWith("/api")             // Cho phép gọi API
+                || uri.startsWith("/v3/api-docs")     // Tài liệu JSON của Swagger
+                || uri.startsWith("/swagger-ui")      // Giao diện Swagger UI
+                || uri.startsWith("/swagger-resources")){
 
             chain.doFilter(request, response);
             return;

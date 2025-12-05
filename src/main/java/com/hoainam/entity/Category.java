@@ -2,6 +2,8 @@ package com.hoainam.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,7 @@ public class Category {
     private User user;
 
     // 1 Category có nhiều Video
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Videos> videos;
 
